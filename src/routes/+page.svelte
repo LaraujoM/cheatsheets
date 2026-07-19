@@ -1,0 +1,449 @@
+<script lang="ts">
+  import type { PageData } from './$types';
+  import type { Command } from '$lib/types';
+
+  let { data }: { data: PageData } = $props();
+
+  let search = $state('');
+  let activeCategory = $state('all');
+  let copied = $state<string | null>(null);
+
+  const categories = data.categories;
+
+  const showHub = $derived(activeCategory === 'all' && search.trim() === '');
+
+  const filtered = $derived(() => {
+    const q = search.toLowerCase().trim();
+    return categories
+      .filter((cat) => activeCategory === 'all' || cat.category === activeCategory)
+      .map((cat) => ({
+        ...cat,
+        commands: cat.commands.filter((cmd: Command) => {
+          if (!q) return true;
+          return (
+            cmd.name.toLowerCase().includes(q) ||
+            cmd.command.toLowerCase().includes(q) ||
+            cmd.description.toLowerCase().includes(q) ||
+            cmd.tags?.some((t) => t.toLowerCase().includes(q))
+          );
+        })
+      }))
+      .filter((cat) => cat.commands.length > 0);
+  });
+
+  async function copy(command: string, id: string) {
+    await navigator.clipboard.writeText(command);
+    copied = id;
+    setTimeout(() => (copied = null), 1500);
+  }
+</script>
+
+<div class="layout">
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">$_</span>
+        <span class="logo-text">CLI Cheatsheets</span>
+      </div>
+      <p class="tagline">Quick reference for curl, grep, kubectl, pipes and more</p>
+      <div class="search-wrap">
+        <input
+          class="search"
+          type="search"
+          placeholder="Search commands..."
+          bind:value={search}
+        />
+      </div>
+    </div>
+  </header>
+
+  <div class="content">
+    <nav class="sidebar">
+      <button
+        class="cat-btn"
+        class:active={activeCategory === 'all'}
+        onclick={() => (activeCategory = 'all')}
+      >
+        All
+      </button>
+      {#each categories as cat}
+        <button
+          class="cat-btn"
+          class:active={activeCategory === cat.category}
+          onclick={() => (activeCategory = cat.category)}
+        >
+          <span>{cat.icon}</span>
+          {cat.category}
+        </button>
+      {/each}
+    </nav>
+
+    <main>
+      {#if showHub}
+        <div class="hub-grid">
+          {#each categories as cat}
+            <button class="hub-card" onclick={() => (activeCategory = cat.category)}>
+              <span class="hub-icon">{cat.icon}</span>
+              <h3 class="hub-name">{cat.category}</h3>
+              <p class="hub-desc">{cat.description}</p>
+              <span class="hub-count">{cat.commands.length} commands</span>
+            </button>
+          {/each}
+        </div>
+      {:else if filtered().length === 0}
+        <div class="empty">No commands found for <strong>"{search}"</strong></div>
+      {:else}
+        {#each filtered() as cat}
+          <section class="category-section">
+            <div class="category-header">
+              <span class="category-icon">{cat.icon}</span>
+              <div>
+                <h2>{cat.category}</h2>
+                <p class="category-desc">{cat.description}</p>
+              </div>
+            </div>
+            <div class="commands-grid">
+              {#each cat.commands as cmd, i}
+                {@const id = `${cat.category}-${i}`}
+                <div class="command-card">
+                  <div class="command-top">
+                    <span class="command-name">{cmd.name}</span>
+                    <button
+                      class="copy-btn"
+                      class:copied={copied === id}
+                      onclick={() => copy(cmd.command, id)}
+                    >
+                      {copied === id ? '✓ Copied' : 'Copy'}
+                    </button>
+                  </div>
+                  <pre class="command-code"><code>{cmd.command}</code></pre>
+                  <p class="command-desc">{cmd.description}</p>
+                  {#if cmd.tags?.length}
+                    <div class="tags">
+                      {#each cmd.tags as tag}
+                        <span class="tag">{tag}</span>
+                      {/each}
+                    </div>
+                  {/if}
+                </div>
+              {/each}
+            </div>
+          </section>
+        {/each}
+      {/if}
+    </main>
+  </div>
+</div>
+
+<style>
+  .layout {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 2rem 1.5rem;
+    text-align: center;
+  }
+
+  .header-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .logo-icon {
+    font-family: var(--font-mono);
+    font-size: 1.5rem;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .logo-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .tagline {
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+  }
+
+  .search {
+    width: 100%;
+    max-width: 500px;
+    padding: 0.75rem 1rem;
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .search:focus {
+    border-color: var(--accent);
+  }
+
+  .content {
+    display: flex;
+    flex: 1;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
+
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    min-width: 160px;
+    position: sticky;
+    top: 1.5rem;
+    align-self: flex-start;
+    max-height: calc(100vh - 3rem);
+    overflow-y: auto;
+  }
+
+  .cat-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 0.75rem;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--radius);
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 0.9rem;
+    text-align: left;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .cat-btn:hover {
+    background: var(--surface-hover);
+    color: var(--text);
+  }
+
+  .cat-btn.active {
+    background: var(--surface-hover);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .category-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .category-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .category-icon {
+    font-size: 1.75rem;
+  }
+
+  .category-header h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+
+  .category-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .commands-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1rem;
+  }
+
+  .command-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    transition: border-color 0.15s;
+  }
+
+  .command-card:hover {
+    border-color: var(--accent);
+  }
+
+  .command-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .command-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .copy-btn {
+    padding: 0.25rem 0.6rem;
+    font-size: 0.75rem;
+    background: var(--surface-hover);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .copy-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .copy-btn.copied {
+    border-color: var(--green);
+    color: var(--green);
+  }
+
+  .command-code {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.6rem 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: #67e8f9;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+
+  .command-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .tag {
+    font-size: 0.7rem;
+    padding: 0.15rem 0.45rem;
+    background: var(--surface-hover);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text-muted);
+  }
+
+  .hub-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+
+  .hub-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    cursor: pointer;
+    text-align: left;
+    transition: border-color 0.15s, background 0.15s;
+  }
+
+  .hub-card:hover {
+    border-color: var(--accent);
+    background: var(--surface-hover);
+  }
+
+  .hub-icon {
+    font-size: 2rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .hub-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    text-transform: capitalize;
+  }
+
+  .hub-desc {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  .hub-count {
+    margin-top: auto;
+    padding-top: 0.75rem;
+    font-size: 0.75rem;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .empty {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 4rem;
+    font-size: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .content {
+      flex-direction: column;
+      padding: 1rem;
+    }
+
+    .sidebar {
+      flex-direction: row;
+      flex-wrap: wrap;
+      position: static;
+      max-height: none;
+    }
+
+    .commands-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

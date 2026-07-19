@@ -1,0 +1,78 @@
+category: kubectl
+icon: ☸️
+description: Kubernetes command-line tool
+commands:
+  - name: Get pods
+    command: kubectl get pods -n <namespace>
+    description: List all pods in a namespace
+    tags: [pods, list]
+
+  - name: Get all resources
+    command: kubectl get all -n <namespace>
+    description: List all resources in a namespace
+    tags: [list, resources]
+
+  - name: Describe pod
+    command: kubectl describe pod <pod-name> -n <namespace>
+    description: Show detailed information about a pod
+    tags: [pods, debug, inspect]
+
+  - name: Pod logs
+    command: kubectl logs <pod-name> -n <namespace> -f
+    description: Stream logs from a pod
+    tags: [logs, debug, stream]
+
+  - name: Previous container logs
+    command: kubectl logs <pod-name> -n <namespace> --previous
+    description: Logs from the previous container instance
+    tags: [logs, debug, crash]
+
+  - name: Exec into pod
+    command: kubectl exec -it <pod-name> -n <namespace> -- /bin/sh
+    description: Open an interactive shell in a pod
+    tags: [exec, shell, debug]
+
+  - name: Apply manifest
+    command: kubectl apply -f manifest.yaml
+    description: Create or update resources from a YAML file
+    tags: [apply, deploy]
+
+  - name: Delete resource
+    command: kubectl delete -f manifest.yaml
+    description: Delete resources defined in a YAML file
+    tags: [delete]
+
+  - name: Scale deployment
+    command: kubectl scale deployment <name> --replicas=3 -n <namespace>
+    description: Scale a deployment to a given number of replicas
+    tags: [scale, deployment]
+
+  - name: Get events
+    command: kubectl get events -n <namespace> --sort-by='.lastTimestamp'
+    description: List events sorted by time
+    tags: [events, debug]
+
+  - name: Port forward
+    command: kubectl port-forward svc/<service> 8080:80 -n <namespace>
+    description: Forward a local port to a service
+    tags: [port-forward, network, debug]
+
+  - name: Get secret value
+    command: "kubectl get secret <name> -n <namespace> -o jsonpath='{.data.<key>}' | base64 -d"
+    description: Decode and print a secret value
+    tags: [secrets, base64]
+
+  - name: Rollout restart
+    command: kubectl rollout restart deployment/<name> -n <namespace>
+    description: Restart a deployment by rolling pods
+    tags: [restart, deployment, rollout]
+
+  - name: Rollout status
+    command: kubectl rollout status deployment/<name> -n <namespace>
+    description: Watch the progress of a rollout
+    tags: [rollout, status, deployment]
+
+  - name: Top pods
+    command: kubectl top pods -n <namespace>
+    description: Show CPU and memory usage of pods
+    tags: [resources, cpu, memory, monitoring]

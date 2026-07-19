@@ -1,0 +1,53 @@
+category: ncat
+icon: 🔌
+description: Networking utility for reading and writing data across connections
+commands:
+  - name: Listen on port
+    command: ncat -l 8080
+    description: Listen for incoming connections on port 8080
+    tags: [listen, server]
+
+  - name: Connect to host
+    command: ncat example.com 80
+    description: Connect to a host on a specific port
+    tags: [connect, client]
+
+  - name: Listen and keep open
+    command: ncat -l -k 8080
+    description: Keep listening after a client disconnects
+    tags: [listen, keep-open, server]
+
+  - name: Transfer file (receiver)
+    command: ncat -l 9000 > received_file.txt
+    description: Receive a file over the network
+    tags: [file, transfer, receive]
+
+  - name: Transfer file (sender)
+    command: ncat target-host 9000 < file.txt
+    description: Send a file over the network
+    tags: [file, transfer, send]
+
+  - name: Simple chat server
+    command: ncat -l 5000 --chat
+    description: Start a simple multi-client chat server
+    tags: [chat, server]
+
+  - name: Port scan
+    command: ncat -zv example.com 20-80
+    description: Scan a range of ports on a host
+    tags: [scan, ports]
+
+  - name: UDP mode
+    command: ncat -u -l 5000
+    description: Listen on UDP instead of TCP
+    tags: [udp, listen]
+
+  - name: Execute command on connect
+    command: ncat -l 4444 -e /bin/bash
+    description: Execute a command when a client connects
+    tags: [exec, shell, server]
+
+  - name: SSL connection
+    command: ncat --ssl example.com 443
+    description: Connect using SSL/TLS
+    tags: [ssl, tls, secure]

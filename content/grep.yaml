@@ -1,0 +1,63 @@
+category: grep
+icon: 🔍
+description: Search text using patterns
+commands:
+  - name: Basic search
+    command: grep "pattern" file.txt
+    description: Search for a pattern in a file
+    tags: [basic, search]
+
+  - name: Case insensitive
+    command: grep -i "pattern" file.txt
+    description: Search ignoring case
+    tags: [case, insensitive]
+
+  - name: Recursive search
+    command: grep -r "pattern" /path/to/dir
+    description: Search recursively in a directory
+    tags: [recursive, directory]
+
+  - name: Show line numbers
+    command: grep -n "pattern" file.txt
+    description: Display line numbers with matches
+    tags: [lines, numbers]
+
+  - name: Invert match
+    command: grep -v "pattern" file.txt
+    description: Show lines that do NOT match the pattern
+    tags: [invert, exclude]
+
+  - name: Count matches
+    command: grep -c "pattern" file.txt
+    description: Count the number of matching lines
+    tags: [count]
+
+  - name: Show filename only
+    command: grep -l "pattern" *.txt
+    description: List only the filenames that contain a match
+    tags: [files, list]
+
+  - name: Context lines
+    command: grep -A 2 -B 2 "pattern" file.txt
+    description: Show 2 lines after (-A) and before (-B) each match
+    tags: [context, before, after]
+
+  - name: Extended regex
+    command: grep -E "pattern1|pattern2" file.txt
+    description: Use extended regular expressions
+    tags: [regex, extended]
+
+  - name: Whole word match
+    command: grep -w "word" file.txt
+    description: Match only whole words
+    tags: [word, exact]
+
+  - name: Search multiple files
+    command: grep "pattern" file1.txt file2.txt
+    description: Search across multiple files
+    tags: [multiple, files]
+
+  - name: Exclude directory
+    command: grep -r --exclude-dir=node_modules "pattern" .
+    description: Recursive search excluding a directory
+    tags: [recursive, exclude]

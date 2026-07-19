@@ -1,0 +1,73 @@
+category: pipes
+icon: 🔗
+description: Shell pipes, redirects and text processing
+commands:
+  - name: Pipe output
+    command: command1 | command2
+    description: Pass stdout of command1 as stdin to command2
+    tags: [pipe, basic]
+
+  - name: Redirect to file
+    command: command > output.txt
+    description: Write stdout to a file (overwrite)
+    tags: [redirect, file]
+
+  - name: Append to file
+    command: command >> output.txt
+    description: Append stdout to a file
+    tags: [redirect, append, file]
+
+  - name: Redirect stderr
+    command: command 2> errors.txt
+    description: Redirect stderr to a file
+    tags: [stderr, redirect, errors]
+
+  - name: Redirect all output
+    command: command > output.txt 2>&1
+    description: Redirect both stdout and stderr to a file
+    tags: [stdout, stderr, redirect]
+
+  - name: Discard output
+    command: command > /dev/null 2>&1
+    description: Suppress all output
+    tags: [devnull, silent]
+
+  - name: Sort lines
+    command: cat file.txt | sort
+    description: Sort lines alphabetically
+    tags: [sort, text]
+
+  - name: Remove duplicates
+    command: cat file.txt | sort | uniq
+    description: Sort and remove duplicate lines
+    tags: [unique, dedup, sort]
+
+  - name: Count lines
+    command: cat file.txt | wc -l
+    description: Count the number of lines
+    tags: [count, lines, wc]
+
+  - name: Filter with awk
+    command: awk '{print $2}' file.txt
+    description: Print the second column from each line
+    tags: [awk, columns, text]
+
+  - name: Replace text with sed
+    command: sed 's/old/new/g' file.txt
+    description: Replace all occurrences of "old" with "new"
+    tags: [sed, replace, text]
+
+  - name: Head / Tail
+    command: cat file.txt | head -20
+    description: Show the first 20 lines of a file
+    tags: [head, tail, lines]
+
+  - name: xargs
+    command: cat files.txt | xargs rm
+    description: Pass lines as arguments to another command
+    tags: [xargs, args]
+
+  - name: tee
+    command: command | tee output.txt
+    description: Write to stdout and a file simultaneously
+    tags: [tee, output, file]

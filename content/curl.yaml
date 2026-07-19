@@ -1,0 +1,63 @@
+category: curl
+icon: 🌐
+description: Transfer data with URLs
+commands:
+  - name: GET request
+    command: curl https://example.com
+    description: Simple GET request
+    tags: [get, basic]
+
+  - name: GET with headers
+    command: 'curl -H "Authorization: Bearer <token>" https://api.example.com'
+    description: GET request with a custom header
+    tags: [get, headers, auth]
+
+  - name: POST JSON
+    command: 'curl -X POST https://api.example.com/data -H "Content-Type: application/json" -d ''{"key": "value"}'''
+    description: POST request with a JSON body
+    tags: [post, json]
+
+  - name: Follow redirects
+    command: curl -L https://example.com
+    description: Follow HTTP redirects automatically
+    tags: [redirect]
+
+  - name: Save response to file
+    command: curl -o output.html https://example.com
+    description: Save the response body to a file
+    tags: [output, file]
+
+  - name: Show response headers
+    command: curl -I https://example.com
+    description: Fetch only the response headers
+    tags: [headers, inspect]
+
+  - name: Verbose output
+    command: curl -v https://example.com
+    description: Show full request and response details
+    tags: [debug, verbose]
+
+  - name: Silent mode
+    command: curl -s https://example.com
+    description: Suppress progress output
+    tags: [silent]
+
+  - name: Basic auth
+    command: curl -u username:password https://example.com
+    description: HTTP basic authentication
+    tags: [auth, basic]
+
+  - name: Upload file
+    command: curl -F "file=@/path/to/file.txt" https://example.com/upload
+    description: Upload a file using multipart form
+    tags: [upload, form]
+
+  - name: Set timeout
+    command: curl --max-time 10 https://example.com
+    description: Abort if the request takes longer than 10 seconds
+    tags: [timeout]
+
+  - name: Retry on failure
+    command: curl --retry 3 --retry-delay 2 https://example.com
+    description: Retry up to 3 times with 2 second delay
+    tags: [retry, resilience]

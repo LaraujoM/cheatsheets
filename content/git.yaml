@@ -1,0 +1,78 @@
+category: git
+icon: 🌿
+description: Distributed version control system
+commands:
+  - name: Clone repository
+    command: git clone https://github.com/user/repo.git
+    description: Clone a remote repository locally
+    tags: [clone, remote]
+
+  - name: Check status
+    command: git status
+    description: Show working tree status
+    tags: [status, basic]
+
+  - name: Stage all changes
+    command: git add .
+    description: Stage all modified and new files
+    tags: [add, stage]
+
+  - name: Commit
+    command: git commit -m "your message"
+    description: Commit staged changes with a message
+    tags: [commit, basic]
+
+  - name: Push to remote
+    command: git push origin main
+    description: Push commits to the remote branch
+    tags: [push, remote]
+
+  - name: Pull from remote
+    command: git pull origin main
+    description: Fetch and merge changes from remote
+    tags: [pull, remote]
+
+  - name: Create branch
+    command: git checkout -b feature/my-branch
+    description: Create and switch to a new branch
+    tags: [branch, checkout]
+
+  - name: List branches
+    command: git branch -a
+    description: List all local and remote branches
+    tags: [branch, list]
+
+  - name: Merge branch
+    command: git merge feature/my-branch
+    description: Merge a branch into the current branch
+    tags: [merge, branch]
+
+  - name: Rebase
+    command: git rebase main
+    description: Reapply commits on top of another branch
+    tags: [rebase, branch]
+
+  - name: Stash changes
+    command: git stash
+    description: Temporarily save uncommitted changes
+    tags: [stash, save]
+
+  - name: Apply stash
+    command: git stash pop
+    description: Apply and remove the latest stash
+    tags: [stash, restore]
+
+  - name: View log
+    command: git log --oneline --graph --all
+    description: Show compact log with branch graph
+    tags: [log, history]
+
+  - name: Undo last commit
+    command: git reset --soft HEAD~1
+    description: Undo the last commit, keeping changes staged
+    tags: [reset, undo]
+
+  - name: Discard changes
+    command: git checkout -- file.txt
+    description: Discard changes to a specific file
+    tags: [discard, restore]
