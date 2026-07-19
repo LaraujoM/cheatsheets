@@ -61,3 +61,38 @@ commands:
     command: grep -r --exclude-dir=node_modules "pattern" .
     description: Recursive search excluding a directory
     tags: [recursive, exclude]
+
+  - name: Only matching part
+    command: grep -o "pattern" file.txt
+    description: Print only the matched portion, not the whole line
+    tags: [output, match]
+
+  - name: Include file type
+    command: grep -r --include="*.js" "pattern" .
+    description: Recursive search only in files matching a glob
+    tags: [recursive, filter, files]
+
+  - name: Fixed string
+    command: grep -F "literal.string" file.txt
+    description: Treat pattern as a literal string, no regex
+    tags: [literal, fixed]
+
+  - name: Max matches
+    command: grep -m 10 "pattern" file.txt
+    description: Stop after 10 matching lines
+    tags: [limit, count]
+
+  - name: Silent / script use
+    command: grep -q "pattern" file.txt && echo found
+    description: Exit 0 if match found, no output — useful in scripts
+    tags: [quiet, script, exit]
+
+  - name: Match start of line
+    command: grep "^pattern" file.txt
+    description: Match lines that start with pattern
+    tags: [regex, anchor, start]
+
+  - name: Match end of line
+    command: grep "pattern$" file.txt
+    description: Match lines that end with pattern
+    tags: [regex, anchor, end]
