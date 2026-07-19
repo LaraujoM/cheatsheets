@@ -59,12 +59,15 @@
 
   <div class="content">
     <nav class="sidebar">
+      <p class="sidebar-label">Categories</p>
       <button
         class="cat-btn"
         class:active={activeCategory === 'all'}
         onclick={() => (activeCategory = 'all')}
       >
-        All
+        <span class="cat-icon">⊞</span>
+        <span class="cat-name">All</span>
+        <span class="cat-count">{categories.reduce((n, c) => n + c.commands.length, 0)}</span>
       </button>
       {#each categories as cat}
         <button
@@ -72,8 +75,9 @@
           class:active={activeCategory === cat.category}
           onclick={() => (activeCategory = cat.category)}
         >
-          <span>{cat.icon}</span>
-          {cat.category}
+          <span class="cat-icon">{cat.icon}</span>
+          <span class="cat-name">{cat.category}</span>
+          <span class="cat-count">{cat.commands.length}</span>
         </button>
       {/each}
     </nav>
@@ -214,8 +218,9 @@
   .sidebar {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
-    min-width: 160px;
+    gap: 0.15rem;
+    width: 180px;
+    min-width: 180px;
     position: sticky;
     top: 1.5rem;
     align-self: flex-start;
@@ -223,20 +228,45 @@
     overflow-y: auto;
   }
 
+  .sidebar-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 0 0.75rem;
+    margin-bottom: 0.35rem;
+  }
+
   .cat-btn {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.6rem 0.75rem;
+    padding: 0.55rem 0.75rem;
     background: transparent;
-    border: 1px solid transparent;
+    border: none;
     border-radius: var(--radius);
     color: var(--text-muted);
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     text-align: left;
-    transition: all 0.15s;
+    transition: background 0.15s, color 0.15s;
     white-space: nowrap;
+    width: 100%;
+    position: relative;
+  }
+
+  .cat-btn::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 20%;
+    bottom: 20%;
+    width: 2px;
+    border-radius: 2px;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.15s;
   }
 
   .cat-btn:hover {
@@ -246,7 +276,36 @@
 
   .cat-btn.active {
     background: var(--surface-hover);
-    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .cat-btn.active::before {
+    opacity: 1;
+  }
+
+  .cat-icon {
+    font-size: 1rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .cat-name {
+    flex: 1;
+    text-transform: capitalize;
+  }
+
+  .cat-count {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    background: var(--surface-hover);
+    padding: 0.1rem 0.4rem;
+    border-radius: 10px;
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .cat-btn.active .cat-count {
+    background: rgba(124, 111, 255, 0.15);
     color: var(--accent);
   }
 
@@ -481,6 +540,16 @@
       flex-wrap: wrap;
       position: static;
       max-height: none;
+      width: 100%;
+      min-width: unset;
+    }
+
+    .sidebar-label {
+      display: none;
+    }
+
+    .cat-count {
+      display: none;
     }
 
     .commands-grid {
