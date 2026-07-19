@@ -230,19 +230,19 @@
 
   .sidebar-label {
     font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--text-muted);
     padding: 0 0.75rem;
-    margin-bottom: 0.35rem;
+    margin-bottom: 0.25rem;
+    opacity: 0.5;
   }
 
   .cat-btn {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.55rem 0.75rem;
+    padding: 0.5rem 0.75rem;
     background: transparent;
     border: none;
     border-radius: var(--radius);
@@ -253,20 +253,6 @@
     transition: background 0.15s, color 0.15s;
     white-space: nowrap;
     width: 100%;
-    position: relative;
-  }
-
-  .cat-btn::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 20%;
-    bottom: 20%;
-    width: 2px;
-    border-radius: 2px;
-    background: var(--accent);
-    opacity: 0;
-    transition: opacity 0.15s;
   }
 
   .cat-btn:hover {
@@ -276,11 +262,7 @@
 
   .cat-btn.active {
     background: var(--surface-hover);
-    color: var(--accent);
-  }
-
-  .cat-btn.active::before {
-    opacity: 1;
+    color: var(--text);
   }
 
   .cat-icon {
@@ -297,16 +279,9 @@
   .cat-count {
     font-size: 0.7rem;
     color: var(--text-muted);
-    background: var(--surface-hover);
-    padding: 0.1rem 0.4rem;
-    border-radius: 10px;
+    opacity: 0.6;
     flex-shrink: 0;
     font-variant-numeric: tabular-nums;
-  }
-
-  .cat-btn.active .cat-count {
-    background: rgba(124, 111, 255, 0.15);
-    color: var(--accent);
   }
 
   main {
