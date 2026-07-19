@@ -83,9 +83,13 @@
         <div class="hub-grid">
           {#each categories as cat}
             <button class="hub-card" onclick={() => (activeCategory = cat.category)}>
-              <span class="hub-icon">{cat.icon}</span>
-              <h3 class="hub-name">{cat.category}</h3>
-              <p class="hub-desc">{cat.description}</p>
+              <div class="hub-icon-wrap">
+                <span class="hub-icon">{cat.icon}</span>
+              </div>
+              <div class="hub-body">
+                <h3 class="hub-name">{cat.category}</h3>
+                <p class="hub-desc">{cat.description}</p>
+              </div>
               <span class="hub-count">{cat.commands.length} commands</span>
             </button>
           {/each}
@@ -373,7 +377,7 @@
 
   .hub-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 1rem;
   }
 
@@ -381,45 +385,82 @@
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 1.5rem;
+    padding: 1.25rem;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
+    gap: 0.75rem;
     cursor: pointer;
     text-align: left;
-    transition: border-color 0.15s, background 0.15s;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hub-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(124, 111, 255, 0.06) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.2s;
   }
 
   .hub-card:hover {
     border-color: var(--accent);
     background: var(--surface-hover);
+    box-shadow: 0 0 0 1px rgba(124, 111, 255, 0.15), 0 4px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  .hub-card:hover::before {
+    opacity: 1;
+  }
+
+  .hub-icon-wrap {
+    width: 2.75rem;
+    height: 2.75rem;
+    background: var(--surface-hover);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s;
+  }
+
+  .hub-card:hover .hub-icon-wrap {
+    border-color: rgba(124, 111, 255, 0.4);
   }
 
   .hub-icon {
-    font-size: 2rem;
-    margin-bottom: 0.25rem;
+    font-size: 1.4rem;
+    line-height: 1;
+  }
+
+  .hub-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    flex: 1;
   }
 
   .hub-name {
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 600;
     color: var(--text);
     text-transform: capitalize;
   }
 
   .hub-desc {
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     color: var(--text-muted);
-    line-height: 1.4;
+    line-height: 1.45;
   }
 
   .hub-count {
-    margin-top: auto;
-    padding-top: 0.75rem;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     color: var(--accent);
     font-weight: 500;
+    letter-spacing: 0.02em;
   }
 
   .empty {
