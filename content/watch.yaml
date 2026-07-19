@@ -1,0 +1,43 @@
+category: watch
+icon: 👁
+description: Monitor commands and endpoints in real time
+commands:
+  - name: Watch a command
+    command: watch -n 2 'command'
+    description: Re-run a command every 2 seconds, updating the output in place
+    tags: [watch, monitor, loop]
+
+  - name: Watch an HTTP endpoint
+    command: watch -n 2 'curl -s http://localhost:8080/api/get'
+    description: Poll an endpoint every 2 seconds and show the response
+    tags: [watch, curl, http]
+
+  - name: Watch with status code and latency
+    command: 'watch -n 2 ''curl -s -o /dev/null -w "http=%{http_code} time=%{time_total}s" http://localhost:8080'''
+    description: Poll silently and print only the HTTP status and response time
+    tags: [watch, curl, latency, status]
+
+  - name: Watch Docker container stats
+    command: watch -n 2 'docker stats --no-stream'
+    description: Refresh container CPU and memory usage every 2 seconds
+    tags: [watch, docker, stats]
+
+  - name: Watch a file for changes
+    command: watch -n 1 cat /var/log/app.log
+    description: Re-print a file every second (poor-man's tail)
+    tags: [watch, file, log]
+
+  - name: Watch disk usage
+    command: watch -n 5 df -h
+    description: Refresh disk usage stats every 5 seconds
+    tags: [watch, disk, system]
+
+  - name: Watch process list
+    command: watch -n 2 'ps aux | grep myapp'
+    description: Monitor a specific process every 2 seconds
+    tags: [watch, process, ps]
+
+  - name: Highlight changes
+    command: watch -n 2 -d 'command'
+    description: Same as watch but highlights values that changed since the last run
+    tags: [watch, diff, highlight]
