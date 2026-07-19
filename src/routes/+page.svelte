@@ -12,7 +12,7 @@
 
   const showHub = $derived(activeCategory === 'all' && search.trim() === '');
 
-  const filtered = $derived(() => {
+  const filtered = $derived.by(() => {
     const q = search.toLowerCase().trim();
     return categories
       .filter((cat) => activeCategory === 'all' || cat.category === activeCategory)
@@ -90,10 +90,10 @@
             </button>
           {/each}
         </div>
-      {:else if filtered().length === 0}
+      {:else if filtered.length === 0}
         <div class="empty">No commands found for <strong>"{search}"</strong></div>
       {:else}
-        {#each filtered() as cat}
+        {#each filtered as cat}
           <section class="category-section">
             <div class="category-header">
               <span class="category-icon">{cat.icon}</span>
