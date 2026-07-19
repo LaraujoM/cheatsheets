@@ -27,10 +27,25 @@ commands:
     description: Generate a self-signed certificate valid for 365 days
     tags: [certificate, self-signed, x509]
 
-  - name: View certificate
+  - name: View certificate (PEM)
     command: openssl x509 -in cert.pem -text -noout
-    description: Display the contents of a certificate in human-readable form
-    tags: [certificate, inspect, x509]
+    description: Display the full contents of a PEM certificate in human-readable form
+    tags: [certificate, inspect, x509, pem]
+
+  - name: View certificate (DER/CRT/CER)
+    command: openssl x509 -inform DER -in cert.crt -text -noout
+    description: Display the full contents of a DER certificate (.crt, .cer, .der)
+    tags: [certificate, inspect, x509, der]
+
+  - name: View PKCS12 contents
+    command: openssl pkcs12 -in bundle.p12 -info -noout
+    description: Display the contents of a .p12 / PKCS12 bundle in human-readable form
+    tags: [certificate, inspect, pkcs12, p12]
+
+  - name: View CSR contents
+    command: openssl req -in request.csr -text -noout
+    description: Display the contents of a Certificate Signing Request
+    tags: [csr, inspect]
 
   - name: Check certificate expiry
     command: openssl x509 -in cert.pem -noout -dates
