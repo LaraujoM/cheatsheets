@@ -1,0 +1,54 @@
+category: AB Benchmark
+icon: ⚡
+logo: https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apache/apache-original.svg
+description: HTTP server load testing and benchmarking tool
+commands:
+  - name: Basic benchmark
+    command: ab -n 1000 -c 10 http://localhost/
+    description: Run 1000 requests with 10 concurrent connections
+    tags: [basic, load]
+
+  - name: High concurrency
+    command: ab -n 5000 -c 100 http://localhost/
+    description: 5000 requests with 100 concurrent — stress test
+    tags: [stress, concurrency]
+
+  - name: POST JSON
+    command: "ab -n 500 -c 20 -p body.json -T application/json http://localhost/api"
+    description: POST benchmark sending a JSON file as the request body
+    tags: [post, json]
+
+  - name: With auth header
+    command: "ab -n 1000 -c 50 -H \"Authorization: Bearer <token>\" http://api.example.com/"
+    description: Benchmark a protected endpoint with a Bearer token
+    tags: [auth, headers]
+
+  - name: Keep-alive connections
+    command: ab -n 1000 -c 10 -k http://localhost/
+    description: Use HTTP keep-alive to reuse connections (faster, more realistic)
+    tags: [keepalive, performance]
+
+  - name: Set timeout
+    command: ab -n 500 -c 10 -t 30 http://localhost/
+    description: Run benchmark for up to 30 seconds instead of a fixed request count
+    tags: [timeout]
+
+  - name: Export CSV results
+    command: ab -n 1000 -c 10 -e results.csv http://localhost/
+    description: Save percentile data to a CSV file for analysis
+    tags: [export, csv, results]
+
+  - name: Custom HTTP method
+    command: ab -n 100 -c 5 -m DELETE http://localhost/api/resource/1
+    description: Benchmark with a custom HTTP method (DELETE, PUT, PATCH...)
+    tags: [method, delete, put]
+
+  - name: With cookies
+    command: "ab -n 500 -c 20 -C \"session=abc123\" http://localhost/"
+    description: Send a cookie with every request
+    tags: [cookies, session]
+
+  - name: Verbose output
+    command: ab -n 10 -c 1 -v 2 http://localhost/
+    description: Show response headers and body for debugging
+    tags: [debug, verbose]

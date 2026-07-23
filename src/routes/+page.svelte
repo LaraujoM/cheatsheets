@@ -75,7 +75,13 @@
           class:active={activeCategory === cat.category}
           onclick={() => (activeCategory = cat.category)}
         >
-          <span class="cat-icon">{cat.icon}</span>
+          <span class="cat-icon">
+            {#if cat.logo}
+              <img src={cat.logo} alt={cat.category} class="tech-logo" />
+            {:else}
+              {cat.icon}
+            {/if}
+          </span>
           <span class="cat-name">{cat.category}</span>
           <span class="cat-count">{cat.commands.length}</span>
         </button>
@@ -88,7 +94,11 @@
           {#each categories as cat}
             <button class="hub-card" onclick={() => (activeCategory = cat.category)}>
               <div class="hub-icon-wrap">
-                <span class="hub-icon">{cat.icon}</span>
+                {#if cat.logo}
+                  <img src={cat.logo} alt={cat.category} class="tech-logo hub-logo" />
+                {:else}
+                  <span class="hub-icon">{cat.icon}</span>
+                {/if}
               </div>
               <div class="hub-body">
                 <h3 class="hub-name">{cat.category}</h3>
@@ -104,7 +114,11 @@
         {#each filtered as cat}
           <section class="category-section">
             <div class="category-header">
-              <span class="category-icon">{cat.icon}</span>
+              {#if cat.logo}
+                <img src={cat.logo} alt={cat.category} class="tech-logo category-logo" />
+              {:else}
+                <span class="category-icon">{cat.icon}</span>
+              {/if}
               <div>
                 <h2>{cat.category}</h2>
                 <p class="category-desc">{cat.description}</p>
@@ -269,6 +283,24 @@
     font-size: 1rem;
     line-height: 1;
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .tech-logo {
+    width: 1rem;
+    height: 1rem;
+    object-fit: contain;
+  }
+
+  .hub-logo {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .category-logo {
+    width: 1.75rem;
+    height: 1.75rem;
   }
 
   .cat-name {
@@ -382,7 +414,7 @@
     padding: 0.6rem 0.75rem;
     font-family: var(--font-mono);
     font-size: 0.82rem;
-    color: #67e8f9;
+    color: var(--accent);
     overflow-x: auto;
     white-space: pre-wrap;
     word-break: break-all;
@@ -434,7 +466,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(124, 111, 255, 0.06) 0%, transparent 60%);
+    background: linear-gradient(135deg, rgba(0, 217, 255, 0.05) 0%, transparent 60%);
     opacity: 0;
     transition: opacity 0.2s;
   }
@@ -442,7 +474,7 @@
   .hub-card:hover {
     border-color: var(--accent);
     background: var(--surface-hover);
-    box-shadow: 0 0 0 1px rgba(124, 111, 255, 0.15), 0 4px 24px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 0 1px rgba(0, 217, 255, 0.15), 0 4px 24px rgba(0, 0, 0, 0.3);
   }
 
   .hub-card:hover::before {
@@ -462,7 +494,7 @@
   }
 
   .hub-card:hover .hub-icon-wrap {
-    border-color: rgba(124, 111, 255, 0.4);
+    border-color: rgba(0, 217, 255, 0.4);
   }
 
   .hub-icon {

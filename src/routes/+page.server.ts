@@ -11,10 +11,12 @@ export function load() {
     .filter((f) => f.endsWith('.yaml'))
     .sort();
 
-  const categories = files.map((file) => {
-    const raw = readFileSync(join(contentDir, file), 'utf-8');
-    return yaml.load(raw) as Category;
-  });
+  const categories = files
+    .map((file) => {
+      const raw = readFileSync(join(contentDir, file), 'utf-8');
+      return yaml.load(raw) as Category;
+    })
+    .filter((cat) => cat != null && Array.isArray(cat.commands));
 
   return { categories };
 }

@@ -1,0 +1,119 @@
+category: docker
+icon: 🐳
+logo: https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg
+description: Build, ship and run containerised applications
+commands:
+  - name: List running containers
+    command: docker ps
+    description: Show all currently running containers
+    tags: [ps, list, containers]
+
+  - name: List all containers
+    command: docker ps -a
+    description: Show all containers including stopped ones
+    tags: [ps, list, stopped]
+
+  - name: List images
+    command: docker images
+    description: List all locally available images
+    tags: [images, list]
+
+  - name: Pull image
+    command: docker pull nginx:latest
+    description: Download an image from a registry (Docker Hub by default)
+    tags: [pull, image, registry]
+
+  - name: Run container
+    command: docker run -d -p 8080:80 --name my-app nginx
+    description: Run a container in detached mode, mapping port 8080 to 80
+    tags: [run, detach, port]
+
+  - name: Run interactively
+    command: docker run -it ubuntu bash
+    description: Start a container and attach an interactive shell
+    tags: [run, interactive, shell]
+
+  - name: Exec into running container
+    command: docker exec -it <container> bash
+    description: Open a shell inside a running container
+    tags: [exec, shell, debug]
+
+  - name: View logs
+    command: docker logs -f <container>
+    description: Follow the logs of a running container in real time
+    tags: [logs, follow, debug]
+
+  - name: Stop container
+    command: docker stop <container>
+    description: Gracefully stop a running container
+    tags: [stop]
+
+  - name: Remove container
+    command: docker rm <container>
+    description: Delete a stopped container
+    tags: [rm, remove, cleanup]
+
+  - name: Remove image
+    command: docker rmi <image>
+    description: Delete a local image
+    tags: [rmi, remove, cleanup]
+
+  - name: Build image
+    command: docker build -t my-app:1.0 .
+    description: Build an image from a Dockerfile in the current directory
+    tags: [build, dockerfile, image]
+
+  - name: Build with no cache
+    command: docker build --no-cache -t my-app .
+    description: Force a full rebuild ignoring the layer cache
+    tags: [build, cache]
+
+  - name: Inspect container
+    command: docker inspect <container>
+    description: Get detailed JSON info about a container (IP, mounts, env, etc.)
+    tags: [inspect, debug, info]
+
+  - name: Copy file to container
+    command: docker cp ./file.txt <container>:/app/file.txt
+    description: Copy a local file into a running container
+    tags: [cp, copy, file]
+
+  - name: Show resource usage
+    command: docker stats
+    description: Live stream of CPU, memory and network usage per container
+    tags: [stats, monitor, resources]
+
+  - name: Remove stopped containers
+    command: docker container prune
+    description: Delete all stopped containers at once
+    tags: [prune, cleanup]
+
+  - name: Remove unused images
+    command: docker image prune -a
+    description: Delete all images not used by any container
+    tags: [prune, images, cleanup]
+
+  - name: Compose up
+    command: docker compose up -d
+    description: Start all services defined in docker-compose.yml in detached mode
+    tags: [compose, up, services]
+
+  - name: Compose down
+    command: docker compose down
+    description: Stop and remove all compose services and their networks
+    tags: [compose, down, cleanup]
+
+  - name: Compose logs
+    command: docker compose logs -f <service>
+    description: Follow logs for a specific compose service
+    tags: [compose, logs, follow]
+
+  - name: List volumes
+    command: docker volume ls
+    description: List all Docker volumes
+    tags: [volume, list]
+
+  - name: List networks
+    command: docker network ls
+    description: List all Docker networks
+    tags: [network, list]

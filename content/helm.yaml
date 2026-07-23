@@ -1,0 +1,129 @@
+category: helm
+icon: ⛵
+logo: https://cdn.jsdelivr.net/gh/devicons/devicon/icons/helm/helm-original.svg
+description: Kubernetes package manager — install, upgrade and manage charts
+commands:
+  - name: Install chart
+    command: helm install my-release bitnami/nginx
+    description: Install a chart with a release name
+    tags: [install, basic]
+
+  - name: Install with custom values
+    command: helm install my-release bitnami/nginx -f values.yaml
+    description: Install a chart overriding defaults with a values file
+    tags: [install, values, config]
+
+  - name: Install with set flag
+    command: helm install my-release bitnami/nginx --set service.type=ClusterIP
+    description: Override a single value inline without a values file
+    tags: [install, set, override]
+
+  - name: Install in namespace
+    command: helm install my-release bitnami/nginx -n my-namespace --create-namespace
+    description: Install into a specific namespace, creating it if it doesn't exist
+    tags: [install, namespace]
+
+  - name: Dry run
+    command: helm install my-release bitnami/nginx --dry-run --debug
+    description: Simulate an install and print the rendered manifests without applying
+    tags: [dry-run, debug, preview]
+
+  - name: Upgrade release
+    command: helm upgrade my-release bitnami/nginx -f values.yaml
+    description: Upgrade an existing release with new values or a new chart version
+    tags: [upgrade, update]
+
+  - name: Install or upgrade
+    command: helm upgrade --install my-release bitnami/nginx -f values.yaml
+    description: Upgrade if the release exists, install it otherwise
+    tags: [upgrade, install, idempotent]
+
+  - name: Rollback release
+    command: helm rollback my-release 1
+    description: Roll back a release to a specific revision number
+    tags: [rollback, revision]
+
+  - name: Uninstall release
+    command: helm uninstall my-release -n my-namespace
+    description: Remove a release and all its Kubernetes resources
+    tags: [uninstall, delete, remove]
+
+  - name: List releases
+    command: helm list -A
+    description: List all releases across all namespaces
+    tags: [list, releases]
+
+  - name: Release history
+    command: helm history my-release
+    description: Show all revisions and their status for a release
+    tags: [history, revisions]
+
+  - name: Get release values
+    command: helm get values my-release
+    description: Show the values that were used for the current release
+    tags: [get, values, inspect]
+
+  - name: Get rendered manifests
+    command: helm get manifest my-release
+    description: Show the Kubernetes manifests currently deployed by a release
+    tags: [get, manifest, inspect]
+
+  - name: Show chart values
+    command: helm show values bitnami/nginx
+    description: Display all configurable values and their defaults for a chart
+    tags: [show, values, chart]
+
+  - name: Show chart info
+    command: helm show chart bitnami/nginx
+    description: Display the chart's metadata (version, description, etc.)
+    tags: [show, chart, info]
+
+  - name: Template (render locally)
+    command: helm template my-release bitnami/nginx -f values.yaml
+    description: Render chart templates locally and print YAML without installing
+    tags: [template, render, local]
+
+  - name: Add repository
+    command: helm repo add bitnami https://charts.bitnami.com/bitnami
+    description: Add a chart repository
+    tags: [repo, add, setup]
+
+  - name: Update repositories
+    command: helm repo update
+    description: Fetch the latest chart info from all added repositories
+    tags: [repo, update, refresh]
+
+  - name: List repositories
+    command: helm repo list
+    description: Show all configured chart repositories
+    tags: [repo, list]
+
+  - name: Search repo
+    command: helm search repo nginx
+    description: Search for charts by name across all added repositories
+    tags: [search, repo, find]
+
+  - name: Search hub
+    command: helm search hub nginx
+    description: Search the Artifact Hub for public charts
+    tags: [search, hub, artifact]
+
+  - name: Lint chart
+    command: helm lint ./my-chart
+    description: Check a local chart for errors and best practice violations
+    tags: [lint, validate, quality]
+
+  - name: Package chart
+    command: helm package ./my-chart
+    description: Package a local chart directory into a .tgz archive
+    tags: [package, publish]
+
+  - name: Pull chart
+    command: helm pull bitnami/nginx --untar
+    description: Download and extract a chart locally to inspect or customise it
+    tags: [pull, download, inspect]
+
+  - name: Status of release
+    command: helm status my-release -n my-namespace
+    description: Show the current status and notes of a deployed release
+    tags: [status, info]

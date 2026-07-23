@@ -1,5 +1,6 @@
 category: kubectl
 icon: ☸️
+logo: https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-original.svg
 description: Kubernetes command-line tool
 commands:
   - name: Get pods

@@ -1,5 +1,5 @@
 category: watch
-icon: 👁
+icon: ⏱️
 description: Monitor commands and endpoints in real time
 commands:
   - name: Watch a command

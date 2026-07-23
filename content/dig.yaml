@@ -1,0 +1,73 @@
+category: Dig
+icon: 🔎
+description: DNS lookup and network diagnostics tool
+commands:
+  - name: Basic A record lookup
+    command: dig example.com
+    description: Query the A (IPv4) record for a domain
+    tags: [basic, a-record, dns]
+
+  - name: Short answer only
+    command: dig +short example.com
+    description: Print only the resolved IP addresses, no extra output
+    tags: [short, clean]
+
+  - name: Query specific DNS server
+    command: dig @8.8.8.8 example.com
+    description: Use a specific DNS resolver (e.g. Google's 8.8.8.8)
+    tags: [resolver, server]
+
+  - name: MX records
+    command: dig example.com MX
+    description: Get mail exchange records for a domain
+    tags: [mx, mail]
+
+  - name: NS records
+    command: dig example.com NS
+    description: Get the authoritative name servers for a domain
+    tags: [ns, nameserver]
+
+  - name: TXT records
+    command: dig example.com TXT
+    description: Get TXT records (SPF, DKIM, domain verification, etc.)
+    tags: [txt, spf, dkim]
+
+  - name: CNAME record
+    command: dig www.example.com CNAME
+    description: Look up the canonical name a domain alias points to
+    tags: [cname, alias]
+
+  - name: AAAA record (IPv6)
+    command: dig example.com AAAA
+    description: Query the IPv6 address for a domain
+    tags: [ipv6, aaaa]
+
+  - name: Reverse DNS lookup
+    command: dig -x 8.8.8.8
+    description: Resolve an IP address to its hostname (PTR record)
+    tags: [reverse, ptr, ip]
+
+  - name: SOA record
+    command: dig example.com SOA
+    description: Get Start of Authority record (serial, refresh, TTL info)
+    tags: [soa, authority]
+
+  - name: Trace full resolution path
+    command: dig +trace example.com
+    description: Follow the full DNS delegation path from root to authoritative server
+    tags: [trace, debug, delegation]
+
+  - name: Clean answer section only
+    command: dig +nocmd +noall +answer example.com
+    description: Show only the answer section with TTL and record data
+    tags: [clean, answer, ttl]
+
+  - name: ALL records
+    command: dig example.com ANY
+    description: Request all available record types for a domain
+    tags: [any, all]
+
+  - name: Check TTL
+    command: dig +nocmd +noall +answer +ttlunits example.com
+    description: Show TTL values in human-readable units (s, m, h)
+    tags: [ttl, cache]

@@ -1,0 +1,109 @@
+category: ssh
+icon: 🔑
+logo: https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ssh/ssh-original.svg
+description: Secure Shell — remote access, tunnels and key management
+commands:
+  - name: Connect to server
+    command: ssh user@host
+    description: Open an SSH session to a remote host
+    tags: [connect, basic]
+
+  - name: Connect on custom port
+    command: ssh -p 2222 user@host
+    description: Connect to a server listening on a non-default port
+    tags: [connect, port]
+
+  - name: Connect with identity file
+    command: ssh -i ~/.ssh/id_rsa user@host
+    description: Authenticate using a specific private key file
+    tags: [connect, key, identity]
+
+  - name: Generate SSH key pair
+    command: ssh-keygen -t ed25519 -C "your@email.com"
+    description: Generate a modern Ed25519 key pair (preferred over RSA)
+    tags: [keygen, key, setup]
+
+  - name: Generate RSA key pair
+    command: ssh-keygen -t rsa -b 4096 -C "your@email.com"
+    description: Generate a 4096-bit RSA key pair
+    tags: [keygen, rsa, key]
+
+  - name: Copy public key to server
+    command: ssh-copy-id user@host
+    description: Install your public key on a remote server for passwordless login
+    tags: [copy-id, setup, passwordless]
+
+  - name: Copy public key manually
+    command: cat ~/.ssh/id_ed25519.pub | ssh user@host "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+    description: Manually append your public key to authorized_keys on the remote
+    tags: [copy-id, setup, manual]
+
+  - name: Local port forward
+    command: ssh -L 8080:localhost:80 user@host
+    description: Forward local port 8080 to port 80 on the remote server
+    tags: [tunnel, forward, port]
+
+  - name: Remote port forward
+    command: ssh -R 9090:localhost:3000 user@host
+    description: Expose local port 3000 through port 9090 on the remote server
+    tags: [tunnel, reverse, port]
+
+  - name: SOCKS proxy
+    command: ssh -D 1080 user@host
+    description: Create a SOCKS5 proxy through the remote host
+    tags: [proxy, socks, tunnel]
+
+  - name: Run command remotely
+    command: ssh user@host "df -h && uptime"
+    description: Execute a command on the remote host without opening an interactive session
+    tags: [remote, command, exec]
+
+  - name: Copy file to remote (scp)
+    command: scp file.txt user@host:/remote/path/
+    description: Securely copy a local file to a remote server
+    tags: [scp, copy, transfer]
+
+  - name: Copy directory to remote
+    command: scp -r ./dir user@host:/remote/path/
+    description: Recursively copy a local directory to a remote server
+    tags: [scp, copy, recursive]
+
+  - name: Copy file from remote
+    command: scp user@host:/remote/file.txt ./local/
+    description: Download a file from a remote server to the current directory
+    tags: [scp, download, transfer]
+
+  - name: Sync with rsync over SSH
+    command: rsync -avz -e ssh ./local/ user@host:/remote/
+    description: Sync a local directory to remote using rsync over SSH (only changed files)
+    tags: [rsync, sync, transfer]
+
+  - name: Keep session alive
+    command: ssh -o ServerAliveInterval=60 user@host
+    description: Send keepalive packets every 60s to prevent the session from dropping
+    tags: [keepalive, session]
+
+  - name: Jump host (bastion)
+    command: ssh -J bastion_user@bastion target_user@target
+    description: Connect to a target through a bastion/jump host in one command
+    tags: [jump, bastion, proxy]
+
+  - name: Verbose connection debug
+    command: ssh -vvv user@host
+    description: Show detailed debug output to diagnose connection issues
+    tags: [debug, verbose, troubleshoot]
+
+  - name: List known hosts
+    command: cat ~/.ssh/known_hosts
+    description: View all hosts your SSH client has previously connected to
+    tags: [known-hosts, list]
+
+  - name: Remove known host entry
+    command: ssh-keygen -R hostname
+    description: Remove a host from known_hosts (e.g. after IP change)
+    tags: [known-hosts, remove, cleanup]
+
+  - name: Test SSH config
+    command: ssh -G user@host
+    description: Print the effective SSH config for a given host without connecting
+    tags: [config, debug, test]

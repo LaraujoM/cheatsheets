@@ -1,0 +1,53 @@
+category: Base64
+icon: 🔢
+description: Encode and decode data in Base64 format
+commands:
+  - name: Encode string
+    command: echo -n "hello world" | base64
+    description: Encode a string to Base64 (without trailing newline)
+    tags: [encode, string]
+
+  - name: Decode string
+    command: echo "aGVsbG8gd29ybGQ=" | base64 --decode
+    description: Decode a Base64 string back to plain text
+    tags: [decode, string]
+
+  - name: Encode file
+    command: base64 file.txt
+    description: Encode the contents of a file to Base64 and print to stdout
+    tags: [encode, file]
+
+  - name: Encode file to output file
+    command: base64 image.png > image.b64
+    description: Encode a binary file (e.g. image) and save to a .b64 file
+    tags: [encode, file, binary]
+
+  - name: Decode file
+    command: base64 --decode encoded.b64 > output.bin
+    description: Decode a Base64 file and write the result to a file
+    tags: [decode, file]
+
+  - name: Decode (macOS)
+    command: echo "aGVsbG8=" | base64 -D
+    description: Decode Base64 on macOS (uses -D instead of --decode)
+    tags: [decode, macos]
+
+  - name: Encode with no line wrapping
+    command: echo -n "some-long-string" | base64 -w 0
+    description: Encode without inserting line breaks every 76 chars (useful for tokens)
+    tags: [encode, nowrap, token]
+
+  - name: Encode URL-safe (replace +/ with -_)
+    command: echo -n "hello" | base64 | tr '+/' '-_' | tr -d '='
+    description: Produce URL-safe Base64 by replacing + and / and stripping padding
+    tags: [encode, url-safe]
+
+  - name: Decode URL-safe Base64
+    command: echo "aGVsbG8" | tr '-_' '+/' | base64 --decode
+    description: Decode URL-safe Base64 back to plain text
+    tags: [decode, url-safe]
+
+  - name: Base64 encode for basic auth
+    command: echo -n "user:password" | base64
+    description: Generate the value for an HTTP Basic Authentication header
+    tags: [auth, http, basic-auth]

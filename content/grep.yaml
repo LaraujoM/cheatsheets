@@ -1,5 +1,6 @@
 category: grep
 icon: 🔍
+logo: https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg
 description: Search text using patterns
 commands:
   - name: Basic search

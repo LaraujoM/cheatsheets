@@ -1,0 +1,104 @@
+category: python
+icon: 🐍
+logo: https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg
+description: Python interpreter, package management and common tools
+commands:
+  - name: Run script
+    command: python main.py
+    description: Execute a Python script
+    tags: [run, basic]
+
+  - name: Run one-liner
+    command: python -c "print('hello world')"
+    description: Execute a short Python expression from the command line
+    tags: [run, oneliner]
+
+  - name: Interactive REPL
+    command: python -i script.py
+    description: Run a script then drop into an interactive interpreter
+    tags: [interactive, repl, debug]
+
+  - name: Create virtual environment
+    command: python -m venv .venv
+    description: Create an isolated virtual environment in .venv/
+    tags: [venv, virtualenv, setup]
+
+  - name: Activate venv (Linux/macOS)
+    command: source .venv/bin/activate
+    description: Activate the virtual environment in the current shell
+    tags: [venv, activate]
+
+  - name: Activate venv (Windows)
+    command: .venv\Scripts\activate
+    description: Activate the virtual environment on Windows
+    tags: [venv, activate, windows]
+
+  - name: Install package
+    command: pip install requests
+    description: Install a package from PyPI into the active environment
+    tags: [pip, install, package]
+
+  - name: Install from requirements
+    command: pip install -r requirements.txt
+    description: Install all packages listed in a requirements file
+    tags: [pip, install, requirements]
+
+  - name: Freeze dependencies
+    command: pip freeze > requirements.txt
+    description: Save all installed packages and versions to requirements.txt
+    tags: [pip, freeze, requirements]
+
+  - name: List installed packages
+    command: pip list
+    description: Show all packages installed in the current environment
+    tags: [pip, list, packages]
+
+  - name: Uninstall package
+    command: pip uninstall requests
+    description: Remove a package from the current environment
+    tags: [pip, uninstall]
+
+  - name: Upgrade package
+    command: pip install --upgrade requests
+    description: Upgrade a package to its latest version
+    tags: [pip, upgrade, update]
+
+  - name: Check outdated packages
+    command: pip list --outdated
+    description: List packages that have newer versions available
+    tags: [pip, outdated, update]
+
+  - name: Run HTTP server
+    command: python -m http.server 8080
+    description: Serve the current directory over HTTP on port 8080
+    tags: [http, server, dev]
+
+  - name: Pretty-print JSON
+    command: echo '{"key":"value"}' | python -m json.tool
+    description: Format and validate JSON from stdin
+    tags: [json, format, pretty]
+
+  - name: Run pytest
+    command: python -m pytest
+    description: Run all tests discovered by pytest in the current directory
+    tags: [test, pytest]
+
+  - name: Run pytest verbose
+    command: python -m pytest -v
+    description: Run tests with verbose output showing each test name
+    tags: [test, pytest, verbose]
+
+  - name: Run pytest with coverage
+    command: python -m pytest --cov=. --cov-report=term-missing
+    description: Run tests and show which lines are not covered
+    tags: [test, coverage, pytest]
+
+  - name: Profile script
+    command: python -m cProfile -s cumtime script.py
+    description: Profile a script and sort results by cumulative time
+    tags: [profile, performance, debug]
+
+  - name: Check syntax only
+    command: python -m py_compile script.py
+    description: Check a file for syntax errors without running it
+    tags: [syntax, lint, check]

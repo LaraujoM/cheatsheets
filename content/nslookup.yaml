@@ -1,0 +1,58 @@
+category: nslookup
+icon: 🔍
+description: Query DNS servers interactively or from the command line
+commands:
+  - name: Basic lookup
+    command: nslookup example.com
+    description: Resolve the IP address of a domain using the default DNS server
+    tags: [basic, dns, a-record]
+
+  - name: Query specific DNS server
+    command: nslookup example.com 8.8.8.8
+    description: Use a specific DNS resolver (e.g. Google 8.8.8.8 or Cloudflare 1.1.1.1)
+    tags: [server, resolver]
+
+  - name: MX records
+    command: nslookup -type=MX example.com
+    description: Get the mail exchange records for a domain
+    tags: [mx, mail, email]
+
+  - name: NS records
+    command: nslookup -type=NS example.com
+    description: Get the authoritative name servers for a domain
+    tags: [ns, nameserver]
+
+  - name: TXT records
+    command: nslookup -type=TXT example.com
+    description: Query TXT records (SPF, DKIM, verification tokens, etc.)
+    tags: [txt, spf, dkim]
+
+  - name: SOA record
+    command: nslookup -type=SOA example.com
+    description: Get the Start of Authority record for a domain
+    tags: [soa, authority]
+
+  - name: AAAA record (IPv6)
+    command: nslookup -type=AAAA example.com
+    description: Resolve the IPv6 address for a domain
+    tags: [ipv6, aaaa]
+
+  - name: CNAME record
+    command: nslookup -type=CNAME www.example.com
+    description: Look up what canonical name an alias points to
+    tags: [cname, alias]
+
+  - name: Reverse lookup
+    command: nslookup 8.8.8.8
+    description: Resolve an IP address back to its hostname (PTR record)
+    tags: [reverse, ptr, ip]
+
+  - name: All record types
+    command: nslookup -type=ANY example.com
+    description: Request all available DNS record types for a domain
+    tags: [any, all]
+
+  - name: Debug mode
+    command: nslookup -debug example.com
+    description: Show detailed query and response information for troubleshooting
+    tags: [debug, verbose]

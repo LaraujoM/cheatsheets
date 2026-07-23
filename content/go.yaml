@@ -1,0 +1,104 @@
+category: go
+icon: 🐹
+logo: https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original-wordmark.svg
+description: Go toolchain — build, test, format and manage modules
+commands:
+  - name: Run a file
+    command: go run main.go
+    description: Compile and run a Go source file directly
+    tags: [run, basic]
+
+  - name: Run all files in package
+    command: go run .
+    description: Compile and run the package in the current directory
+    tags: [run, package]
+
+  - name: Build binary
+    command: go build -o app .
+    description: Compile the package into an executable named app
+    tags: [build, binary]
+
+  - name: Build for Linux (cross-compile)
+    command: GOOS=linux GOARCH=amd64 go build -o app-linux .
+    description: Cross-compile a binary for Linux amd64 from any OS
+    tags: [build, cross-compile, linux]
+
+  - name: Run tests
+    command: go test ./...
+    description: Run all tests in the current module recursively
+    tags: [test, all]
+
+  - name: Run tests verbose
+    command: go test -v ./...
+    description: Run tests with verbose output showing each test name and result
+    tags: [test, verbose]
+
+  - name: Run tests with coverage
+    command: go test -cover ./...
+    description: Show test coverage percentage per package
+    tags: [test, coverage]
+
+  - name: Coverage report (HTML)
+    command: go test -coverprofile=cov.out ./... && go tool cover -html=cov.out
+    description: Generate and open an HTML coverage report in the browser
+    tags: [test, coverage, html]
+
+  - name: Format code
+    command: gofmt -w .
+    description: Format all Go files in the current directory in place
+    tags: [format, gofmt, style]
+
+  - name: Vet code
+    command: go vet ./...
+    description: Report suspicious constructs and common mistakes
+    tags: [vet, lint, quality]
+
+  - name: Init module
+    command: go mod init github.com/user/project
+    description: Create a new go.mod file for the module
+    tags: [mod, init, module]
+
+  - name: Tidy dependencies
+    command: go mod tidy
+    description: Add missing and remove unused module dependencies
+    tags: [mod, tidy, deps]
+
+  - name: Add dependency
+    command: go get github.com/some/package@latest
+    description: Download and add a dependency to go.mod
+    tags: [get, deps, package]
+
+  - name: Update all deps
+    command: go get -u ./...
+    description: Update all dependencies to their latest minor/patch versions
+    tags: [get, update, deps]
+
+  - name: List dependencies
+    command: go list -m all
+    description: Show all modules required by the current module
+    tags: [list, deps, modules]
+
+  - name: Install tool globally
+    command: go install github.com/some/tool@latest
+    description: Build and install a Go tool into $GOPATH/bin
+    tags: [install, tool]
+
+  - name: Clean build cache
+    command: go clean -cache
+    description: Remove cached build artifacts to force a full rebuild
+    tags: [clean, cache]
+
+  - name: Show environment
+    command: go env
+    description: Print all Go environment variables (GOPATH, GOROOT, GOOS, etc.)
+    tags: [env, config, info]
+
+  - name: Generate code
+    command: go generate ./...
+    description: Run go:generate directives in source files
+    tags: [generate, codegen]
+
+  - name: Benchmark tests
+    command: go test -bench=. -benchmem ./...
+    description: Run benchmark functions and report memory allocations
+    tags: [bench, benchmark, performance]

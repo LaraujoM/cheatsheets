@@ -1,5 +1,6 @@
 category: git
 icon: 🧑‍💻
+logo: https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg
 description: Distributed version control system
 commands:
   - name: Clone repository

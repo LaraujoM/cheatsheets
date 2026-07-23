@@ -1,5 +1,5 @@
 category: curl
-icon: 🌐
+icon: 📡
 description: Transfer data with URLs
 commands:
   - name: GET request

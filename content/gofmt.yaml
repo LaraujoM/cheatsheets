@@ -1,0 +1,74 @@
+category: gofmt
+icon: 🎨
+logo: https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original-wordmark.svg
+description: Go code formatting, linting and import management tools
+commands:
+  - name: Format all files
+    command: gofmt -w .
+    description: Format every Go file in the current directory in place
+    tags: [format, basic]
+
+  - name: Show diff without changing
+    command: gofmt -d .
+    description: Preview formatting changes as a diff without writing files
+    tags: [diff, preview, dry-run]
+
+  - name: List unformatted files
+    command: gofmt -l .
+    description: Print the names of files that are not correctly formatted
+    tags: [list, check, ci]
+
+  - name: Simplify code while formatting
+    command: gofmt -s -w .
+    description: Apply code simplifications (e.g. remove redundant slice indices) and format
+    tags: [simplify, format]
+
+  - name: Format single file
+    command: gofmt -w main.go
+    description: Format a specific file in place
+    tags: [format, file]
+
+  - name: Format and print to stdout
+    command: gofmt main.go
+    description: Print the formatted version of a file without changing it
+    tags: [format, stdout]
+
+  - name: Fix imports (goimports)
+    command: goimports -w .
+    description: Format code and automatically add or remove import statements
+    tags: [imports, format, goimports]
+
+  - name: Install goimports
+    command: go install golang.org/x/tools/cmd/goimports@latest
+    description: Install the goimports tool globally
+    tags: [install, goimports, setup]
+
+  - name: Vet all packages
+    command: go vet ./...
+    description: Report suspicious constructs that the compiler won't catch
+    tags: [vet, lint, static-analysis]
+
+  - name: Run golangci-lint
+    command: golangci-lint run ./...
+    description: Run a comprehensive set of linters in one command (requires golangci-lint)
+    tags: [lint, golangci, quality]
+
+  - name: Install golangci-lint
+    command: go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+    description: Install the golangci-lint meta-linter globally
+    tags: [install, golangci, setup]
+
+  - name: Check formatting in CI
+    command: test -z "$(gofmt -l .)"
+    description: Exit with error if any file is not formatted — use in CI pipelines
+    tags: [ci, check, pipeline]
+
+  - name: staticcheck
+    command: staticcheck ./...
+    description: Run staticcheck for advanced static analysis beyond go vet
+    tags: [staticcheck, lint, analysis]
+
+  - name: Install staticcheck
+    command: go install honnef.co/go/tools/cmd/staticcheck@latest
+    description: Install the staticcheck tool globally
+    tags: [install, staticcheck, setup]

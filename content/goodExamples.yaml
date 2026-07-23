@@ -1,0 +1,93 @@
+category: Useful Examples
+icon: ✨
+description: Practical real-world one-liners and command combinations
+commands:
+  - name: Find large files
+    command: find / -type f -size +100M 2>/dev/null | sort
+    description: List all files larger than 100MB on the system
+    tags: [find, disk, size]
+
+  - name: Disk usage by directory
+    command: du -sh /* 2>/dev/null | sort -rh | head -20
+    description: Show top 20 directories by disk usage, sorted largest first
+    tags: [disk, du, storage]
+
+  - name: Monitor logs in real time
+    command: tail -f /var/log/syslog | grep -i error
+    description: Follow a log file and filter for error lines
+    tags: [logs, tail, grep, monitor]
+
+  - name: List open ports
+    command: ss -tlnp
+    description: Show all TCP ports currently listening with their process
+    tags: [ports, network, ss]
+
+  - name: Who is using port 8080
+    command: lsof -i :8080
+    description: Find which process is bound to a specific port
+    tags: [lsof, port, process]
+
+  - name: Kill process by name
+    command: pkill -f process_name
+    description: Kill all processes whose command line matches a name
+    tags: [kill, process, pkill]
+
+  - name: SSH tunnel (local forward)
+    command: ssh -L 8080:localhost:80 user@remote-host
+    description: Forward local port 8080 to port 80 on the remote server
+    tags: [ssh, tunnel, port-forward]
+
+  - name: Run command in background
+    command: nohup ./long-script.sh > output.log 2>&1 &
+    description: Run a command that survives logout and saves output to a file
+    tags: [background, nohup, process]
+
+  - name: Watch a command every 2s
+    command: watch -n 2 'df -h'
+    description: Re-run a command every 2 seconds and display live output
+    tags: [watch, monitor, live]
+
+  - name: Extract tar.gz
+    command: tar -xzf archive.tar.gz -C /target/dir
+    description: Extract a .tar.gz archive to a specific directory
+    tags: [tar, extract, archive]
+
+  - name: Create tar.gz
+    command: tar -czf archive.tar.gz /path/to/dir
+    description: Compress a directory into a .tar.gz archive
+    tags: [tar, compress, archive]
+
+  - name: Replace text in files recursively
+    command: grep -rl "old_text" . | xargs sed -i 's/old_text/new_text/g'
+    description: Find and replace a string across all files in a directory
+    tags: [sed, grep, replace, xargs]
+
+  - name: Count occurrences in a file
+    command: grep -c "pattern" file.txt
+    description: Count how many lines in a file match a pattern
+    tags: [grep, count]
+
+  - name: Check SSL cert expiry
+    command: echo | openssl s_client -connect example.com:443 2>/dev/null | openssl x509 -noout -dates
+    description: Show the validity dates of a remote site's TLS certificate
+    tags: [ssl, cert, openssl, tls]
+
+  - name: Generate a random password
+    command: openssl rand -base64 32
+    description: Generate a cryptographically secure random 32-byte password
+    tags: [password, random, openssl, security]
+
+  - name: Diff two command outputs
+    command: diff <(command1) <(command2)
+    description: Compare the output of two commands directly without temp files
+    tags: [diff, compare, bash]
+
+  - name: Retry command until success
+    command: until command; do sleep 5; done
+    description: Keep retrying a command every 5 seconds until it exits successfully
+    tags: [retry, loop, bash]
+
+  - name: Top 10 most used commands
+    command: history | awk '{print $2}' | sort | uniq -c | sort -rn | head -10
+    description: Show your 10 most frequently used shell commands
+    tags: [history, stats, shell]

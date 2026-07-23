@@ -8,6 +8,7 @@ export interface Command {
 export interface Category {
   category: string;
   icon: string;
+  logo?: string;
   description: string;
   commands: Command[];
 }

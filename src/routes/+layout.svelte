@@ -16,17 +16,18 @@
   }
 
   :global(:root) {
-    --bg: #08090c;
-    --surface: #111318;
-    --surface-hover: #1c1f2e;
-    --border: #1e2235;
-    --text: #f1f5ff;
-    --text-muted: #7c8aaa;
-    --accent: #7c6fff;
-    --accent-hover: #a78bfa;
-    --green: #22d3a3;
-    --code-bg: #060709;
-    --radius: 8px;
+    --bg: #0d1117;
+    --surface: #161b22;
+    --surface-hover: #1c2128;
+    --border: #30363d;
+    --text: #c9d1d9;
+    --text-muted: #8b949e;
+    --accent: #00d9ff;
+    --accent-hover: #33e4ff;
+    --green: #4ade80;
+    --yellow: #ffd60a;
+    --code-bg: #0d1117;
+    --radius: 6px;
     --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
   }
 

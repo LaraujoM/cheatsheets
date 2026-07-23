@@ -1,5 +1,5 @@
 category: pipes
-icon: 🔗
+icon: ⚙️
 description: Shell pipes, redirects and text processing
 commands:
   - name: Pipe output
