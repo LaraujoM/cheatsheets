@@ -12,6 +12,11 @@ commands:
     description: GET request with a custom header
     tags: [get, headers, auth]
 
+  - name: Request with personalized host
+    command: 'curl -v https://system.upteamco.com/ --resolve system.upteamco.com:443:34.87.38.168'
+    description: Request with a personalized host header
+    tags: [get, headers]
+
   - name: POST JSON
     command: 'curl -X POST https://api.example.com/data -H "Content-Type: application/json" -d ''{"key": "value"}'''
     description: POST request with a JSON body
@@ -36,6 +41,11 @@ commands:
     command: curl -v https://example.com
     description: Show full request and response details
     tags: [debug, verbose]
+
+  - name: Show certificate information
+    command: curl -Iv https://example.com
+    description: Display SSL certificate details
+    tags: [ssl, certificate]
 
   - name: Silent mode
     command: curl -s https://example.com
